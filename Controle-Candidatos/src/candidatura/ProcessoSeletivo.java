@@ -1,10 +1,44 @@
 package candidatura;
 
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ProcessoSeletivo {
     public static void main(String[] args) {
-        imprimirSelecionados();
+        String candidatos[] = { "Marcele ", "Maycon ", "Talita ", "Paulo ", "Talisson " };
+        for (String candidato : candidatos) {
+            entrandoEmContato(candidato);
+        }
+    }
+
+    static void entrandoEmContato(String candidato) {
+        int tentativaRealizadas = 1;
+        boolean continuarTentando = true;
+        boolean atendeu = false;
+        do {
+            atendeu = atender();
+            continuarTentando = !atendeu;
+            if (continuarTentando)
+                tentativaRealizadas++;
+            else
+                System.out.println("Contato realizado com sucesso");
+
+            // elas precisarão sofrer alterações ou o entrará emm looping ifinito
+        } while (continuarTentando && tentativaRealizadas < 3);
+
+        System.out.println("Conseguimos contato com " + candidato + " Na " + tentativaRealizadas + " tentativa");
+        System.out.println("Não conseguimoes contato " + candidato + ", Número máximo de tentativas "
+                + tentativaRealizadas + " realizadas.");
+
+    }
+
+    // método auxiliar.
+    // Esse metodo simula que através de uma expressão randomica que se o valor
+    // entre 1 e 3 for igual 1 quer dizer que ele atendeu
+    //
+    static boolean atender() {
+        return new Random().nextInt(3) == 1;
+
     }
 
     static void imprimirSelecionados() {
